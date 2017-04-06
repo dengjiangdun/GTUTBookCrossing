@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">GDUTBook</string>
+    <!--sign activity-->
+    <string name="sign_username">username</string>
+    <string name="sign_password">password</string>
+    <string name="sign_phone">phone number</string>
+    <string name="sign_email">email</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_academy">academy</string>
+    <string name="sign_gender">gender</string>
+    <string name="choose_gender">Gender</string>
+    <!--choose academy-->
+    <string name="choose_academy_title">Choose Academy</string>
+    <string name="name_password_shoud_not_empte">UserName and password should not empty</string>
+    <string name="sign_in_successfully">Sign in successfully</string>
+    <!--login Activity-->
+    <string name="no_account_go_to_sign">No account?Sign in</string>
+    <string name="login_account">Login</string>
+    <string name="login_successfully">Login Successfully!</string>
+
+    <!--add book-->
+    <string name="book_name">Book name</string>
+    <string name="edit_isbn">ISBN</string>
+    <string name="book_type">Book type</string>
+    <string name="book_price">Book price</string>
+    <string name="book_interchange_address">交易地点</string>
+    <string name="book_description">Book description</string>
+    <string name="book_price_yuan">元</string>
+    <string name="book_submit">发布</string>
+
+    <string name="choose_a_address">选择地址</string>
+    <string name="is_something_error">出错：</string>
+
+    <string name="add_address">增加地址</string>
+    <string name="fill_address">填写地址</string>
+    <string name="fill_phone_number">填写电话号码</string>
+    <string name="save_address">保存</string>
+    <string name="save_done">保存成功</string>
+    <string name="phone_error">手机号码不合法</string>
+    <string name="address_phone_is_empty">地址和手机号码不能为空</string>
+
+    <string name="choose_book_type">选择图书类别</string>
+    <string name="isbn_not_legal">ISBN不合法</string>
+    <string name="upload_success">上传成功</string>
+    <string name="upload_fail">上传失败</string>
+    <string name="something_is_empty">请填完所有信息</string>
+</resources>

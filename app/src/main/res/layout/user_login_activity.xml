@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/top_bar_layout"/>
+    <EditText
+        android:paddingLeft="@dimen/padding_left"
+        android:layout_marginTop="@dimen/login_padding_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_sign_width"
+        android:id="@+id/et_login_user_name"
+        android:hint="@string/sign_username"
+        android:textSize="@dimen/edit_sign_text_size"/>
+    <EditText
+        android:paddingLeft="@dimen/padding_left"
+        android:layout_marginTop="@dimen/login_padding_top"
+        android:layout_width="match_parent"
+        android:hint="@string/sign_password"
+        android:textSize="@dimen/edit_sign_text_size"
+        android:layout_height="@dimen/edit_sign_width"
+        android:inputType="textPassword"
+        android:id="@+id/et_login_user_password"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_sign_width"
+        android:text="@string/no_account_go_to_sign"
+        android:gravity="center"
+        android:id="@+id/tv_go_to_sign"
+        android:layout_marginTop="@dimen/padding_left"/>
+    <Button
+        android:layout_marginLeft="@dimen/padding_left"
+        android:layout_marginTop="@dimen/login_padding_top"
+        android:layout_marginRight="@dimen/padding_left"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_button_height"
+        android:id="@+id/btn_login"
+        android:text="@string/login_account"
+        android:gravity="center"
+        android:background="@color/main_color"/>
+
+
+</LinearLayout>

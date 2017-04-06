@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="@dimen/padding_right"
+    android:paddingLeft="@dimen/padding_right">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/academy_item_width" 
+        android:gravity="center|left"
+        android:id="@+id/tv_address"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/phone_heigh"
+        android:gravity="center|right"
+        android:id="@+id/tv_phone"/>
+
+</LinearLayout>

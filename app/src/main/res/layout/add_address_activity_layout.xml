@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/top_bar_layout"
+        android:id="@+id/top_bar"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_below="@+id/top_bar"
+        android:layout_height="@dimen/add_book_edit_view_height"
+        android:layout_marginLeft="@dimen/padding_left"
+        android:layout_marginRight="@dimen/padding_left"
+        android:hint="@string/fill_address"
+        android:id="@+id/et_add_address"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_below="@+id/et_add_address"
+        android:layout_height="@dimen/add_book_edit_view_height"
+        android:layout_marginLeft="@dimen/padding_left"
+        android:layout_marginRight="@dimen/padding_left"
+        android:hint="@string/fill_phone_number"
+        android:id="@+id/et_add_phone"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_below="@+id/et_add_phone"
+        android:layout_height="@dimen/login_button_height"
+        android:background="@color/main_color"
+        android:layout_marginLeft="@dimen/padding_right"
+        android:layout_marginRight="@dimen/padding_right"
+        android:id="@+id/btn_save"
+        android:text="@string/save_address"/>
+
+</RelativeLayout>
