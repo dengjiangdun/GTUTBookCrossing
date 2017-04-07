@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.deng.johndon.gdutbookcrossing.view.CycleView
         android:layout_width="match_parent"
         android:id="@+id/cv_picture"
         android:layout_height="@dimen/cycle_view_height"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hot_books"
+        android:paddingLeft="@dimen/padding_left"
+        android:background="@color/main_activity_container_line"/>
     <com.lhh.ptrrv.library.PullToRefreshRecyclerView
         android:layout_width="match_parent"
         android:id="@+id/pr_books"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
-</ScrollView>

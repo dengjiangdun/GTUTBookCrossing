@@ -25,4 +25,5 @@
     <dimen name="add_book_padding_top">20dp</dimen>
     <dimen name="price_width">150dp</dimen>
     <dimen name="phone_heigh">25dp</dimen>
+    <dimen name="book_pic_height">200dp</dimen>
 </resources>
