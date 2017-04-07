@@ -33,7 +33,6 @@ public class RecommendFragment extends BaseFragment implements BookAdapter.OnCli
     private List<Ad> mAdList;
     private List<Book> mListBook;
     private BookAdapter mBookAdapter;
-    String TAG = "BookAdapter";
     @Override
     protected int getLayoutId() {
         return R.layout.recommend_fragment_layout;
@@ -81,7 +80,6 @@ public class RecommendFragment extends BaseFragment implements BookAdapter.OnCli
                             mListBook.clear();
                             mListBook.addAll(list);
                             mBookAdapter.notifyDataSetChanged();
-                            Log.d(TAG, "run: "+list.size());
                             mPRRVBook.setOnRefreshComplete();
                             mPRRVBook.onFinishLoading(true,false);
 
