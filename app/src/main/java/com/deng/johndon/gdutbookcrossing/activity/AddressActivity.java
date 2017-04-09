@@ -130,7 +130,6 @@ public class AddressActivity extends BaseActivity implements AddressAdapter.GetA
         Address address = mAddressList.get(position);
         intent.putExtra(KEY_ADDRESS_OBJECTID,address.getObjectId());
         intent.putExtra(KEY_ADDRESS_NAME,address.getPlace());
-        Log.d("TAG", "onActivityResult:address "+address.getPlace()+address.getObjectId());
         setResult(Activity.RESULT_OK,intent);
         AddressActivity.this.finish();
 

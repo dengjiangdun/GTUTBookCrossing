@@ -73,6 +73,22 @@
             android:text="@string/my_order_book"
             android:textColor="@color/text_main_color"
             android:textSize="@dimen/text_main_size"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/padding_left"
+            android:paddingRight="@dimen/padding_right"
+            android:paddingLeft="@dimen/padding_left"
+            android:background="@color/text_tip_color"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_fragment_item"
+            android:paddingLeft="@dimen/padding_left"
+            android:gravity="center|left"
+            android:id="@+id/tv_address"
+            android:text="@string/my_address"
+            android:textColor="@color/text_main_color"
+            android:textSize="@dimen/text_main_size"/>
     </LinearLayout>
 
 
