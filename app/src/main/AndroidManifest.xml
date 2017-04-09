@@ -39,6 +39,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.ReleaseBookActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyAddressActivity"
+            android:screenOrientation="portrait"/>
 
 
 

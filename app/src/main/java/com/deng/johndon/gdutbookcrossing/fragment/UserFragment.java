@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.deng.johndon.gdutbookcrossing.R;
+import com.deng.johndon.gdutbookcrossing.activity.MyAddressActivity;
 import com.deng.johndon.gdutbookcrossing.activity.ReleaseBookActivity;
 import com.deng.johndon.gdutbookcrossing.model.GDUTUser;
 import com.deng.johndon.gdutbookcrossing.view.CircleImageView;
@@ -23,8 +24,9 @@ public class UserFragment extends BaseFragment implements View.OnClickListener{
     private TextView mTvLoginOut;
     private TextView mTvRelease;
     private TextView mTvOrder;
-    private GDUTUser mGDUTUser;
+    private TextView mTvAddress;
 
+    private GDUTUser mGDUTUser;
     private final static String NAME_FORMAT = "用户名：%s";
     @Override
     protected int getLayoutId() {
@@ -51,6 +53,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener{
         mTvLoginOut.setOnClickListener(this);
         mTvRelease.setOnClickListener(this);
         mTvOrder.setOnClickListener(this);
+        mTvAddress.setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +63,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener{
         mTvLoginOut = (TextView) view.findViewById(R.id.tv_login_out);
         mTvRelease = (TextView) view.findViewById(R.id.tv_my_release_book);
         mTvOrder = (TextView) view.findViewById(R.id.tv_my_order_book);
+        mTvAddress = (TextView) view.findViewById(R.id.tv_address);
     }
 
     @Override
@@ -84,6 +88,12 @@ public class UserFragment extends BaseFragment implements View.OnClickListener{
             }
 
             case R.id.tv_my_order_book:{
+                break;
+            }
+
+            case R.id.tv_address:{
+                Intent intent = new Intent(getActivity(), MyAddressActivity.class);
+                getActivity().startActivity(intent);
                 break;
             }
 

@@ -29,13 +29,14 @@ import cn.bmob.v3.listener.FindListener;
 public class ReleaseBookActivity extends BaseActivity {
     private ImageView mIvBack;
     private TextView mTvTitle;
-    private List<Book> mBookList;
-    private GDUTUser mGDUTBook;
     private ReleaseBookAdapter mReleaseBookAdapter;
     private RecyclerView mRvBook;
     private SwipeRefreshLayout mSrl;
+
     private int mPage = 0;
     private boolean noMore = false;
+    private List<Book> mBookList;
+    private GDUTUser mGDUTBook;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_release_activity;
@@ -53,6 +54,7 @@ public class ReleaseBookActivity extends BaseActivity {
         mTvTitle = (TextView) findViewById(R.id.tv_bar_title);
         mSrl = (SwipeRefreshLayout) findViewById(R.id.srl_layout);
         mRvBook = (RecyclerView) findViewById(R.id.rv_book);
+
     }
 
     @Override
@@ -135,6 +137,7 @@ public class ReleaseBookActivity extends BaseActivity {
         bookBmobQuery.setSkip(0);
         mPage = 0;
         showProgressDialog();
+        noMore = false;
         bookBmobQuery.findObjects(this, new FindListener<Book>() {
             @Override
             public void onSuccess(final List<Book> list) {
