@@ -1,26 +1,22 @@
 package com.deng.johndon.gdutbookcrossing.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import com.deng.johndon.gdutbookcrossing.R;
+import com.deng.johndon.gdutbookcrossing.activity.DetailBookActivity;
 import com.deng.johndon.gdutbookcrossing.adapter.BookAdapter;
 import com.deng.johndon.gdutbookcrossing.model.Ad;
 import com.deng.johndon.gdutbookcrossing.model.Book;
-import com.deng.johndon.gdutbookcrossing.view.BookLoadMoreView;
 import com.deng.johndon.gdutbookcrossing.view.CycleView;
-import com.deng.johndon.gdutbookcrossing.view.DividerItemDecoration;
-import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
 
 /**
@@ -29,10 +25,12 @@ import cn.bmob.v3.listener.FindListener;
 
 public class RecommendFragment extends BaseFragment implements BookAdapter.OnClickBookItemListener{
     private CycleView mCycleViewPictures;
-    private PullToRefreshRecyclerView mPRRVBook;
+   // private PullToRefreshRecyclerView mPRRVBook;
     private List<Ad> mAdList;
     private List<Book> mListBook;
     private BookAdapter mBookAdapter;
+
+    private static final String KEY_GET_BOOK_OBJECTID = "book_object_id";
     @Override
     protected int getLayoutId() {
         return R.layout.recommend_fragment_layout;
@@ -63,7 +61,6 @@ public class RecommendFragment extends BaseFragment implements BookAdapter.OnCli
         });
         mListBook = new ArrayList<>();
         mBookAdapter = new BookAdapter(getActivity(),this,mListBook);
-        mPRRVBook.getRecyclerView().setAdapter(mBookAdapter);
         reFresh();
     }
 
@@ -80,8 +77,6 @@ public class RecommendFragment extends BaseFragment implements BookAdapter.OnCli
                             mListBook.clear();
                             mListBook.addAll(list);
                             mBookAdapter.notifyDataSetChanged();
-                            mPRRVBook.setOnRefreshComplete();
-                            mPRRVBook.onFinishLoading(true,false);
 
 
                         }
@@ -99,40 +94,20 @@ public class RecommendFragment extends BaseFragment implements BookAdapter.OnCli
 
     @Override
     protected void initlistener() {
-        BookLoadMoreView bookLoadMoreView = new BookLoadMoreView(getActivity(),mPRRVBook.getRecyclerView());
-        bookLoadMoreView.setLoadMorePadding(100);
-        bookLoadMoreView.setLoadmoreString("Loading...");
-        mPRRVBook.removeHeader();
-        mPRRVBook.setSwipeEnable(true);
-        mPRRVBook.setLoadMoreFooter(bookLoadMoreView);
-        mPRRVBook.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        mPRRVBook.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
-            @Override
-            public void onLoadMoreItems() {
 
-            }
-        });
-
-        mPRRVBook.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                reFresh();
-            }
-        });
-
-        mPRRVBook.setLoadmoreString("loading...");
-        mPRRVBook.onFinishLoading(true,false);
     }
 
     @Override
     protected void initView(View view) {
         mCycleViewPictures = (CycleView) view.findViewById(R.id.cv_picture);
-        mPRRVBook = (PullToRefreshRecyclerView) view.findViewById(R.id.pr_books);
+       // mPRRVBook = (PullToRefreshRecyclerView) view.findViewById(R.id.pr_books);
 
     }
 
     @Override
     public void clickItemPosition(int position) {
-
+        Intent intent = new Intent(getActivity(), DetailBookActivity.class);
+        intent.putExtra(KEY_GET_BOOK_OBJECTID,mListBook.get(position).getObjectId());
+        getActivity().startActivity(intent);
     }
 }

@@ -38,10 +38,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     }
 
     @Override
-    public void onBindViewHolder(BookViewHolder holder, int position) {
+    public void onBindViewHolder(BookViewHolder holder, final int position) {
         holder.tv.setText(mListBook.get(position).getName());
         Glide.with(mContext).load(mListBook.get(position).getAvatar()).override(200,100).into(holder.iv);
         Log.d(TAG, "url"+mListBook.get(position).getAvatar());
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnClickBookItemListener.clickItemPosition(position);
+            }
+        });
     }
 
     @Override
@@ -52,8 +58,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public class BookViewHolder extends RecyclerView.ViewHolder{
         ImageView iv;
         TextView tv;
+        View view;
         public BookViewHolder(View itemView) {
             super(itemView);
+            view = itemView;
             iv = (ImageView) itemView.findViewById(R.id.iv_book_item);
             tv = (TextView) itemView.findViewById(R.id.tv_book_item);
         }

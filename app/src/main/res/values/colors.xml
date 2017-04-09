@@ -8,5 +8,9 @@
     <color name="main_activity_container_line">#ffeeeeee</color>
     <color name="main_activity_botton_color">#ffffff</color>
     <color name="transparent">#00000000</color>
+    <color name="submit_color">#ffaa21</color>
+    <color name="submit_text_color">#6b6963</color>
+    <color name="text_tip_color">#afada8</color>
+    <color name="text_main_color">#383837</color>
 
 </resources>

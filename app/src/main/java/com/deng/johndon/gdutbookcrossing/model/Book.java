@@ -18,6 +18,15 @@ public class Book extends BmobObject {
     private Address address;
     private BookType bookType;
     private Academy academy;
+    private int hasRead;
+
+    public int getHasRead() {
+        return hasRead;
+    }
+
+    public void setHasRead(int hasRead) {
+        this.hasRead = hasRead;
+    }
 
     public GDUTUser getOwner() {
         return owner;

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_left"
+    android:paddingRight="@dimen/padding_right">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:orientation="horizontal"
+       android:layout_height="wrap_content">
+       <com.deng.johndon.gdutbookcrossing.view.CircleImageView
+           android:layout_width="@dimen/book_detail_item_height"
+           android:id="@+id/cv_user_avatar"
+           android:layout_height="@dimen/book_detail_item_height"
+           android:src="@drawable/default_icon_header"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/text_main_size"
+           android:gravity="center|left"
+           android:layout_gravity="center"
+           android:id="@+id/tv_comment"
+           android:textColor="@color/text_main_color"
+           android:layout_marginLeft="@dimen/padding_left"
+           android:text="@string/book_detail_user"/>
+
+   </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|right"
+        android:textColor="@color/text_tip_color"
+        android:textSize="@dimen/text_tip_size"
+        android:id="@+id/tv_date"/>
+</LinearLayout>

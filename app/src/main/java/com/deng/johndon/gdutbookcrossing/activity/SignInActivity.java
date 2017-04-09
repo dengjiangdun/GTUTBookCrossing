@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -26,6 +27,7 @@ import com.deng.johndon.gdutbookcrossing.R;
 import com.deng.johndon.gdutbookcrossing.model.Academy;
 import com.deng.johndon.gdutbookcrossing.model.GDUTUser;
 import com.deng.johndon.gdutbookcrossing.view.CircleImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +45,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadBatchListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 /**
@@ -65,9 +68,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private static final int PHOTORESOULT = 0x1112;
     public static final String IMAGE_UNSPECIFIED = "image/*";
     private File tempFile;
-    private String headLocalFilePath = Environment
-            .getExternalStorageDirectory() + "/" + "GDUTBook/" + "headCrop.jpg";
-    private Uri imageUri = Uri.fromFile(new File(headLocalFilePath)); // 图片本地路径
+    private String headLocalFilePath ;
+    private Uri imageUri;// 图片本地路径
     private static final int REQUEST_ACADEMY_CODE = 0x1113;
     private  static String[] GENDER_LIST = new String[]{"male","female"};
     private int index = -1;
@@ -127,24 +129,36 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 }
                if (isUpload){
                    showProgressDialog();
-                   mBmobFile.setUrl(headLocalFilePath);
-                   mBmobFile.upload(SignInActivity.this, new UploadFileListener() {
+                   BmobFile.uploadBatch(SignInActivity.this, new String[]{headLocalFilePath}, new UploadBatchListener() {
                        @Override
-                       public void onSuccess() {
+                       public void onSuccess(List<BmobFile> list, final List<String> list1) {
                            runOnUiThread(new Runnable() {
                                @Override
                                public void run() {
-                                   mGDUTUser.setAvatar(mBmobFile.getUrl());
+                                   mGDUTUser.setAvatar(list1.get(0));
                                    userSigin();
                                }
                            });
                        }
 
                        @Override
-                       public void onFailure(int i, String s) {
+                       public void onProgress(int i, int i1, int i2, int i3) {
 
                        }
+
+                       @Override
+                       public void onError(int i, final String s) {
+                           runOnUiThread(new Runnable() {
+                               @Override
+                               public void run() {
+                                   showShortToast("出错："+s);
+                                   disProgressDialog();
+                               }
+                           });
+                       }
                    });
+
+
                } else {
                    userSigin();
                }
@@ -153,7 +167,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
             case R.id.ci_user_avatar:{
                 checkPermition();
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                /*Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.putExtra("crop",true);
                 intent.setType("image/*");
                 intent.putExtra("aspectX",1);
@@ -171,7 +185,12 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
                 Intent wrapperIntent = Intent.createChooser(intent, "先择图片"); //开始 并设置标题
                 //startActivityForResult(wrapperIntent, 1);
-                startActivityForResult(wrapperIntent,GET_AVATAR_REQUEST_CODE);
+                startActivityForResult(wrapperIntent,GET_AVATAR_REQUEST_CODE);*/
+                Intent intent = new Intent(Intent.ACTION_PICK, null);
+                intent.setDataAndType(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        IMAGE_UNSPECIFIED);
+                startActivityForResult(intent,GET_AVATAR_REQUEST_CODE);
                 break;
             }
 
@@ -204,7 +223,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK ){
             if (requestCode == GET_AVATAR_REQUEST_CODE){
-                refreshImgString();
+               /* refreshImgString();
                 //startPhotoZoom(data.getData());
                 Log.d("TAG", "onActivityResult: "+data.getData());
                 try {
@@ -214,15 +233,18 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 } catch (IOException e) {
                     e.printStackTrace();
                     isUpload = false;
-                }
+                }*/
 
                  //   Bitmap bitmap = BitmapFactory.decodeStream( is );
                 //mCiAvatar.setImageDrawable(Drawable.createFromPath(headLocalFilePath));
                 //mCiAvatar.setImageBitmap(BitmapFactory.decodeFile(data.getData().toString()));
+                imageUri = data.getData();
+                refreshImgString();
+                Log.d("TAGSign", "onActivityResult: "+imageUri+headLocalFilePath);
+                isUpload = true;
+                ImageLoader.getInstance().displayImage(String.valueOf(imageUri),mCiAvatar);
             } else if (requestCode == PHOTORESOULT){
-                Log.d("TAG", "onActivityResult: "+headLocalFilePath+data.getData());
-                //mCiAvatar.setImageDrawable(Drawable.createFromPath(headLocalFilePath));
-                //mCiAvatar.setImageBitmap(BitmapFactory.decodeFile(data.getData().toString()));
+
             } else if (requestCode == REQUEST_ACADEMY_CODE){
                 String academyName = data.getStringExtra(KEY_GET_ACADEMY);
                 String objectId = data.getStringExtra(KEY_GET_OBJECTID);
@@ -231,7 +253,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 academy.setName(academyName);
                 academy.setObjectId(objectId);
                 mGDUTUser.setAcademy(academy);
-                Log.d("TAG", "onActivityResult: "+academyName+"id"+objectId);
             }
         }
     }
@@ -247,18 +268,32 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                     }
     }
     private void refreshImgString() {
-        headLocalFilePath = Environment.getExternalStorageDirectory() + "/"
+        /*headLocalFilePath = Environment.getExternalStorageDirectory() + "/"
                 + "GDUTBook/" + System.currentTimeMillis() + ".jpg";
-        imageUri = Uri.fromFile(new File(headLocalFilePath));
+        imageUri = Uri.fromFile(new File(headLocalFilePath));*/
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = this.managedQuery(imageUri, proj, // Which
+                null, // WHERE clause; which rows to return (all rows)
+                null, // WHERE clause selection arguments (none)
+                null); // Order-by clause (ascending by name)
+
+        if (cursor != null) {
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            if (cursor.getCount() > 0 && cursor.moveToFirst()) {
+                headLocalFilePath  = cursor.getString(column_index);
+            }
+        }
     }
 
     private void userSigin(){
-        mGDUTUser.setUsername(mEtUserName.getText().toString());
-        mGDUTUser.setPassword(mEtUserPassword.getText().toString());
-        String phone = mEtUserPhone.getText().toString();
+        mGDUTUser.setUsername(mEtUserName.getText().toString().trim());
+        mGDUTUser.setPassword(mEtUserPassword.getText().toString().trim());
+        String phone = mEtUserPhone.getText().toString().trim();
         String email = mEtUserEmail.getText().toString();
         mGDUTUser.setMobilePhoneNumber(phone);
         mGDUTUser.setEmail(email);
+        Log.d("TAG", "userSigin: "+phone);
         if (index != -1){
             mGDUTUser.setGender(GENDER_LIST[index]);
         }
@@ -270,6 +305,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void run() {
                         showShortToast(getString(R.string.sign_in_successfully));
+                        disProgressDialog();
                         finish();
                     }
                 });
@@ -281,6 +317,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void run() {
                         showShortToast("message"+s+i);
+                        disProgressDialog();
                     }
                 });
             }

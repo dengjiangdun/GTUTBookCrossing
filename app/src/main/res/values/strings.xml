@@ -45,4 +45,20 @@
     <string name="upload_fail">上传失败</string>
     <string name="something_is_empty">请填完所有信息</string>
     <string name="hot_books">热门</string>
+    <string name="book_detail">详细介绍</string>
+    <string name="book_isbn">ISBN</string>
+    <string name="book_detail_price">价格</string>
+    <string name="book_detail_book">预定</string>
+    <string name="book_detal_title">图书详情</string>
+    <string name="book_detail_comment">评论</string>
+    <string name="book_detail_user">用户</string>
+    <string name="add_comment">点击添加评论 </string>
+    <string name="submit_comment">提交评论</string>
+    <string name="comment_not_empty">评论不能为空</string>
+
+    <string name="has_not_login">未登录</string>
+    <string name="user_login_out">注销</string>
+    <string name="my_release_book">我发布的书本</string>
+    <string name="my_order_book">我购买的书本</string>
+    <string name="my_release_title">我发布的书</string>
 </resources>
