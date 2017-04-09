@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<include layout="@layout/top_bar_layout"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/add_comment_height"
+        android:paddingRight="@dimen/padding_right"
+        android:paddingLeft="@dimen/padding_left"
+        android:id="@+id/et_add_comment"
+        android:hint="@string/add_comment"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_button_height"
+        android:layout_marginTop="@dimen/login_button_height"
+        android:background="@color/main_color"
+        android:text="@string/submit_comment"
+        android:paddingRight="@dimen/padding_right"
+        android:paddingLeft="@dimen/padding_left"
+        android:id="@+id/btn_submit"/>
+</LinearLayout>

@@ -38,7 +38,8 @@ abstract  public class BaseFragment extends Fragment {
 
     protected boolean checkLogin(){
         GDUTUser gdutUser = BmobUser.getCurrentUser(getActivity(),GDUTUser.class);
-        return gdutUser == null;
+       // goToLogin();
+        return gdutUser != null;
     }
 
     protected void goToLogin(){

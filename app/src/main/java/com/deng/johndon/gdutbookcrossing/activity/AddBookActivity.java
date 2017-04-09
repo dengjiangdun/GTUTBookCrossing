@@ -171,6 +171,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
             book.setBookType(mBookType);
             book.setPrice(price);
             book.setDescription(description);
+            book.setState("0");
 
         } else {
             showShortToast(getResources().getString(R.string.something_is_empty));
@@ -216,7 +217,7 @@ public class AddBookActivity extends BaseActivity implements View.OnClickListene
     private void upBook(Book book) {
         book.save(this, new SaveListener() {
             @Override
-            public void onSuccess() {
+            public void onSuccess() {// /storage/emulated/0/DCIM/Camera/IMG_20170408_161154.jpg  /storage/emulated/0/DCIM/Camera/IMG_20170408_161154.jpg
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
