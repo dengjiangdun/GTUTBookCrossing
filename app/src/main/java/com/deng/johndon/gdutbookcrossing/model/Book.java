@@ -7,7 +7,7 @@ import cn.bmob.v3.BmobObject;
  */
 
 public class Book extends BmobObject {
-    private String state;
+    private String state;//0 空闲1被预定 2被购买
     private String price;
     private GDUTUser owner;
     private GDUTUser buyer;

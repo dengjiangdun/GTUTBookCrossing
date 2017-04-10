@@ -2,6 +2,7 @@ package com.deng.johndon.gdutbookcrossing.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.deng.johndon.gdutbookcrossing.R;
 import com.deng.johndon.gdutbookcrossing.model.Book;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by DELL on 2017/4/9.
  */
 
-public class ReleaseBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class OrderBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
     private List<Book> mBookList;
 
@@ -31,10 +32,9 @@ public class ReleaseBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final static int LOADING_MORE=2;
     private final static int NO_MORE_LOAD=3;
     private int mState = 1;
-    public ReleaseBookAdapter(Context context,List<Book> bookList) {
+    public OrderBookAdapter(Context context, List<Book> bookList) {
         mContext = context;
         mBookList = bookList;
-        Log.d("TAG", "onCreateViewHolder: "+bookList.size());
 
     }
 
@@ -59,7 +59,18 @@ public class ReleaseBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ReleaseViewHolder) {
             ReleaseViewHolder releaseViewHolder = (ReleaseViewHolder) holder;
-            releaseViewHolder.tv.setText("book"+mBookList.get(position).getName());
+           Book book = mBookList.get(position);
+            Glide.with(mContext).load(book.getAvatar()).into(releaseViewHolder.mIvBookPic);
+            releaseViewHolder.tvBookName.setText(book.getName());
+            if (!TextUtils.isEmpty(book.getState())){
+                if ("1".equals(book.getState())){
+                    releaseViewHolder.tvBookState.setText(mContext.getString(R.string.orderer_by_you));
+                } else if ("2".equals(book.getState())){
+                    releaseViewHolder.tvBookState.setText(mContext.getString(R.string.buy_by_you));
+
+                }
+
+            }
         }else if (holder instanceof FootHolder) {
             FootHolder footHolder = (FootHolder) holder;
             switch (mState){
@@ -131,10 +142,16 @@ public class ReleaseBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     public class ReleaseViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv;
+        private TextView tvBookName;
+        private TextView tvBookState;
+        private TextView tvBookOperate;
+        private ImageView mIvBookPic;
         public ReleaseViewHolder(View itemView) {
             super(itemView);
-            tv = (TextView) itemView.findViewById(R.id.tv_book_name);
+            tvBookName = (TextView) itemView.findViewById(R.id.tv_book_name);
+            tvBookState = (TextView) itemView.findViewById(R.id.tv_book_state);
+            tvBookOperate = (TextView) itemView.findViewById(R.id.tv_operate);
+            mIvBookPic = (ImageView) itemView.findViewById(R.id.iv_book_pic);
         }
     }
 

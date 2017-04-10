@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.deng.johndon.gdutbookcrossing.R;
 import com.deng.johndon.gdutbookcrossing.activity.MyAddressActivity;
+import com.deng.johndon.gdutbookcrossing.activity.MyOrderBookActivity;
 import com.deng.johndon.gdutbookcrossing.activity.ReleaseBookActivity;
 import com.deng.johndon.gdutbookcrossing.model.GDUTUser;
 import com.deng.johndon.gdutbookcrossing.view.CircleImageView;
@@ -88,6 +89,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener{
             }
 
             case R.id.tv_my_order_book:{
+                Intent intent = new Intent(getActivity(), MyOrderBookActivity.class);
+                getActivity().startActivity(intent);
                 break;
             }
 
