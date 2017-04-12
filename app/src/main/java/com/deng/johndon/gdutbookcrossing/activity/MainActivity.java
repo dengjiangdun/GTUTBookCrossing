@@ -124,32 +124,8 @@ public class MainActivity extends BaseActivity {
     private void  saveInstalltion(){
         final GDUTUser gdutUser = BmobUser.getCurrentUser(this,GDUTUser.class);
         if (gdutUser != null){
-            BmobInstallation bmobInstallation = new BmobInstallation(this);
-            final UserInstallation userInstallation = new UserInstallation(this);
-            BmobQuery<UserInstallation> bmobQuery = new BmobQuery<>();
-            bmobQuery.addWhereEqualTo("gdutUser",gdutUser);
-            bmobQuery.findObjects(this, new FindListener<UserInstallation>() {
-                @Override
-                public void onSuccess(final List<UserInstallation> list) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (list.size() == 1){
-                               // userInstallation.setUserId(gdutUser.getObjectId());
-                                userInstallation.update(MainActivity.this);
-                            } else {
-                               userInstallation.setGdutUser(gdutUser);
-                                userInstallation.save(MainActivity.this);
-                            }
-                        }
-                    });
-                }
-
-                @Override
-                public void onError(int i, String s) {
-
-                }
-            });
+            gdutUser.setInstallation(BmobInstallation.getCurrentInstallation(this).getInstallationId());
+            gdutUser.update(this);
         }
     }
 

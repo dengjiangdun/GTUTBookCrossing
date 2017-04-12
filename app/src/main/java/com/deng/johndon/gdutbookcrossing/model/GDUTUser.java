@@ -10,6 +10,15 @@ public class GDUTUser extends BmobUser{
     private String gender;
     private String avatar;
     private Academy academy;
+    private String installation;
+
+    public String getInstallation() {
+        return installation;
+    }
+
+    public void setInstallation(String installation) {
+        this.installation = installation;
+    }
 
     public Academy getAcademy() {
         return academy;

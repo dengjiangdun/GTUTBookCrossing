@@ -19,6 +19,7 @@ import com.deng.johndon.gdutbookcrossing.adapter.CommentAdapter;
 import com.deng.johndon.gdutbookcrossing.model.Book;
 import com.deng.johndon.gdutbookcrossing.model.Comment;
 import com.deng.johndon.gdutbookcrossing.model.GDUTUser;
+import com.deng.johndon.gdutbookcrossing.view.FullyLinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,9 +112,10 @@ public class DetailBookActivity extends BaseActivity implements CommentAdapter.A
         mCommentList = new ArrayList<>();
         mCommentAdapter = new CommentAdapter(this,this,mCommentList);
         mRvComment.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRvComment.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        //linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        FullyLinearLayoutManager fullyLinearLayoutManager = new FullyLinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        mRvComment.setLayoutManager(fullyLinearLayoutManager);
         mTvTitle.setText(getString(R.string.book_detal_title));
         BmobQuery<Comment> commentBmobQuery = new BmobQuery<>();
         commentBmobQuery.include("gdutUser[username|avatar]");

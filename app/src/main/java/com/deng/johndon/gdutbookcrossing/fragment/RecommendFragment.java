@@ -30,7 +30,7 @@ import cn.bmob.v3.listener.FindListener;
  * Created by DELL on 2017/2/16.
  */
 
-public class RecommendFragment extends BaseFragment implements BookAdapter.OnClickBookItemListener{
+public class RecommendFragment extends BaseFragment implements HotBookAdapter.OnClickBookItemListener{
     private CycleView mCycleViewPictures;
     private SwipeRefreshLayout mSrlHotBook;
     private RecyclerView mRvHotBook;
@@ -71,7 +71,7 @@ public class RecommendFragment extends BaseFragment implements BookAdapter.OnCli
             }
         });
         mListBook = new ArrayList<>();
-        mHotBookAdapter = new HotBookAdapter(getActivity(),mListBook);
+        mHotBookAdapter = new HotBookAdapter(getActivity(),this,mListBook);
         mRvHotBook.setAdapter(mHotBookAdapter);
         getHotBook();
     }
@@ -121,12 +121,6 @@ public class RecommendFragment extends BaseFragment implements BookAdapter.OnCli
 
     }
 
-    @Override
-    public void clickItemPosition(int position) {
-        Intent intent = new Intent(getActivity(), DetailBookActivity.class);
-        intent.putExtra(KEY_GET_BOOK_OBJECTID,mListBook.get(position).getObjectId());
-        getActivity().startActivity(intent);
-    }
 
     private void  getHotBook(){
         noMore = false;
@@ -207,4 +201,13 @@ public class RecommendFragment extends BaseFragment implements BookAdapter.OnCli
     }
 
 
+    @Override
+    public void clciPosition(int postion) {
+        if (postion == mListBook.size()){
+            return;
+        }
+        Intent intent = new Intent(getActivity(),DetailBookActivity.class);
+        intent.putExtra(KEY_GET_BOOK_OBJECTID,mListBook.get(postion).getObjectId());
+        getActivity().startActivity(intent);
+    }
 }

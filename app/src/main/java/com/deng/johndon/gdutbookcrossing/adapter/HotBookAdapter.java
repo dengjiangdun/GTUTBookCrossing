@@ -25,16 +25,17 @@ public class HotBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context mContext;
     private List<Book> mBookList;
 
+    private OnClickBookItemListener mClickBookItemListener;
     private final static int TYPE_ITEM=0;
     private final static int TYPE_MORE=1;
-
     private final static int PULL_UP_LOAD_MORE=1;
     private final static int LOADING_MORE=2;
     private final static int NO_MORE_LOAD=3;
     private int mState = 1;
-    public HotBookAdapter(Context context, List<Book> bookList) {
-        mContext = context;
-        mBookList = bookList;
+    public HotBookAdapter(Context context, OnClickBookItemListener onClickBookItemListener, List<Book> bookList) {
+        this.mContext = context;
+        this.mClickBookItemListener = onClickBookItemListener;
+        this.mBookList = bookList;
 
     }
 
@@ -56,11 +57,17 @@ public class HotBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ReleaseViewHolder) {
             ReleaseViewHolder releaseViewHolder = (ReleaseViewHolder) holder;
              Book book = mBookList.get(position);
             releaseViewHolder.tv.setText(book.getName());
+            releaseViewHolder.iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mClickBookItemListener.clciPosition(position);
+                }
+            });
             Glide.with(mContext).load(book.getAvatar()).override(200,100).into(releaseViewHolder.iv);
         }else if (holder instanceof FootHolder) {
             FootHolder footHolder = (FootHolder) holder;
@@ -143,5 +150,10 @@ public class HotBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tv = (TextView) itemView.findViewById(R.id.tv_book_item);
         }
     }
+
+    public interface OnClickBookItemListener{
+        public void clciPosition(int postion);
+    }
+
 
 }
