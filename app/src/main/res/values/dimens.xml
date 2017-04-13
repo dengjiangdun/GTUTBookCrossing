@@ -35,4 +35,7 @@
     <dimen name="text_main_size">16sp</dimen>
     <dimen name="add_comment_height">200dp</dimen>
     <dimen name="user_fragment_item">45dp</dimen>
+
+    <dimen name="data_book_height">150dp</dimen>
+    <dimen name="data_book_tv_height">45dp</dimen>
 </resources>

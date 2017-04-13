@@ -2,6 +2,7 @@ package com.deng.johndon.gdutbookcrossing.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.deng.johndon.gdutbookcrossing.R;
 import com.deng.johndon.gdutbookcrossing.model.Book;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -20,21 +21,21 @@ import java.util.List;
  * Created by DELL on 2017/4/9.
  */
 
-public class ReleaseBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class HotBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
     private List<Book> mBookList;
 
+    private OnClickBookItemListener mClickBookItemListener;
     private final static int TYPE_ITEM=0;
     private final static int TYPE_MORE=1;
-
     private final static int PULL_UP_LOAD_MORE=1;
     private final static int LOADING_MORE=2;
     private final static int NO_MORE_LOAD=3;
     private int mState = 1;
-    public ReleaseBookAdapter(Context context,List<Book> bookList) {
-        mContext = context;
-        mBookList = bookList;
-        Log.d("TAG", "onCreateViewHolder: "+bookList.size());
+    public HotBookAdapter(Context context, OnClickBookItemListener onClickBookItemListener, List<Book> bookList) {
+        this.mContext = context;
+        this.mClickBookItemListener = onClickBookItemListener;
+        this.mBookList = bookList;
 
     }
 
@@ -44,7 +45,7 @@ public class ReleaseBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Log.d("TAG", "onCreateViewHolder: "+viewType);
         if (viewType == TYPE_ITEM){
             ReleaseViewHolder releaseViewHolder =new ReleaseViewHolder(LayoutInflater.from(mContext).
-                    inflate(R.layout.release_book_item_layout,parent,false));
+                    inflate(R.layout.book_item_layout,parent,false));
             return releaseViewHolder;
         } else if (viewType == TYPE_MORE){
             FootHolder footHolder = new FootHolder(LayoutInflater.from(mContext).
@@ -56,10 +57,18 @@ public class ReleaseBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ReleaseViewHolder) {
             ReleaseViewHolder releaseViewHolder = (ReleaseViewHolder) holder;
-            releaseViewHolder.tv.setText("book"+mBookList.get(position).getName());
+             Book book = mBookList.get(position);
+            releaseViewHolder.tv.setText(book.getName());
+            releaseViewHolder.iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mClickBookItemListener.clciPosition(position);
+                }
+            });
+            Glide.with(mContext).load(book.getAvatar()).override(200,100).into(releaseViewHolder.iv);
         }else if (holder instanceof FootHolder) {
             FootHolder footHolder = (FootHolder) holder;
             switch (mState){
@@ -131,11 +140,20 @@ public class ReleaseBookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     public class ReleaseViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv;
+        ImageView iv;
+        TextView tv;
+        View view;
         public ReleaseViewHolder(View itemView) {
             super(itemView);
-            tv = (TextView) itemView.findViewById(R.id.tv_book_name);
+            view = itemView;
+            iv = (ImageView) itemView.findViewById(R.id.iv_book_item);
+            tv = (TextView) itemView.findViewById(R.id.tv_book_item);
         }
     }
+
+    public interface OnClickBookItemListener{
+        public void clciPosition(int postion);
+    }
+
 
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.deng.johndon.gdutbookcrossing.R;
 import com.deng.johndon.gdutbookcrossing.model.GDUTUser;
 
+import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -104,7 +105,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                     public void run() {
                         showShortToast(getString(R.string.login_successfully));
                         BmobUser.getCurrentUser(LoginActivity.this);
-                        finish();
+                        saveInstalltion();
                     }
                 });
             }
@@ -119,5 +120,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 });
             }
         });
+    }
+
+    private void  saveInstalltion(){
+        final GDUTUser gdutUser = BmobUser.getCurrentUser(this,GDUTUser.class);
+        if (gdutUser != null){
+            gdutUser.setInstallation(BmobInstallation.getCurrentInstallation(this).getInstallationId());
+            gdutUser.update(this);
+            finish();
+        }
     }
 }

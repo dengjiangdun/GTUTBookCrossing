@@ -15,9 +15,16 @@ import com.deng.johndon.gdutbookcrossing.fragment.MessageFragment;
 import com.deng.johndon.gdutbookcrossing.fragment.RecommendFragment;
 import com.deng.johndon.gdutbookcrossing.fragment.UserFragment;
 import com.deng.johndon.gdutbookcrossing.model.GDUTUser;
+import com.deng.johndon.gdutbookcrossing.model.UserInstallation;
 import com.deng.johndon.gdutbookcrossing.view.CycleView;
 
+import java.util.List;
+
+import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends BaseActivity {
     private CycleView mCvPictures;
@@ -67,7 +74,7 @@ public class MainActivity extends BaseActivity {
                 hide(mGDUTFragment[1]).
                 hide(mGDUTFragment[2]).
                 hide(mGDUTFragment[3]).commit();
-
+        saveInstalltion();
     }
 
     public void onTabClicked(View view){
@@ -112,7 +119,15 @@ public class MainActivity extends BaseActivity {
         mIv[currentIndex].setSelected(true);
         mTv[currentIndex].setTextColor(getResources().getColor(R.color.main_color));
         GDUTUser gdutUser = new GDUTUser();
-
     }
+
+    private void  saveInstalltion(){
+        final GDUTUser gdutUser = BmobUser.getCurrentUser(this,GDUTUser.class);
+        if (gdutUser != null){
+            gdutUser.setInstallation(BmobInstallation.getCurrentInstallation(this).getInstallationId());
+            gdutUser.update(this);
+        }
+    }
+
 
 }

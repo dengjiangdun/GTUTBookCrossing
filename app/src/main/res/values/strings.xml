@@ -62,4 +62,8 @@
     <string name="my_order_book">我购买的书本</string>
     <string name="my_release_title">我发布的书</string>
     <string name="my_address">我的地址</string>
+    <string name="it_is_wrong">出错:</string>
+    <string name="my_order_book_page">我购买的书</string>
+    <string name="orderer_by_you">已被你预定</string>
+    <string name="buy_by_you">已被你购买</string>
 </resources>

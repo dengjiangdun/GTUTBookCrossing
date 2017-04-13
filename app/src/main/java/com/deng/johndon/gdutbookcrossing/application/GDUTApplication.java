@@ -6,7 +6,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
+import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobInstallation;
 
 /**
  * Created by DELL on 2017/2/16.
@@ -29,6 +31,8 @@ public class GDUTApplication extends Application {
                 .imageDownloader(new BaseImageDownloader(this,5*1000,30*1000))
                 .build();
         ImageLoader.getInstance().init(loaderConfiguration);
+        BmobInstallation.getCurrentInstallation(this).save();
+        BmobPush.startWork(this);
 
     }
 
