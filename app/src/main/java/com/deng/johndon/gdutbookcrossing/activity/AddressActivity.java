@@ -13,12 +13,14 @@ import android.widget.TextView;
 import com.deng.johndon.gdutbookcrossing.R;
 import com.deng.johndon.gdutbookcrossing.adapter.AddressAdapter;
 import com.deng.johndon.gdutbookcrossing.model.Address;
+import com.deng.johndon.gdutbookcrossing.model.GDUTUser;
 import com.deng.johndon.gdutbookcrossing.view.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
 
 /**
@@ -89,6 +91,7 @@ public class AddressActivity extends BaseActivity implements AddressAdapter.GetA
     private void getAddresses() {
         showProgressDialog();
         BmobQuery<Address> bmobQuery = new BmobQuery<>();
+        bmobQuery.addWhereEqualTo("gdutUser", BmobUser.getCurrentUser(this, GDUTUser.class));
         bmobQuery.findObjects(this, new FindListener<Address>() {
             @Override
             public void onSuccess(final List<Address> list) {
@@ -98,7 +101,6 @@ public class AddressActivity extends BaseActivity implements AddressAdapter.GetA
                         mAddressList.clear();
                         mAddressList.addAll(list);
                         mAddressAdapter.notifyDataSetChanged();
-                        Log.d("TAG", "run: "+mAddressList.size());
                         disProgressDialog();
 
                     }
