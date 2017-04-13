@@ -59,7 +59,7 @@ public class BookFragment extends BaseFragment {
         bookBmobQuery.findObjects(getActivity(), new FindListener<Book>() {
             @Override
             public void onSuccess(List<Book> list) {
-                
+
             }
 
             @Override
