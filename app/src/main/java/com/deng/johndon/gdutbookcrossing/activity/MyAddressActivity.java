@@ -1,9 +1,11 @@
 package com.deng.johndon.gdutbookcrossing.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,6 +59,8 @@ public class MyAddressActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRvAddress.setLayoutManager(linearLayoutManager);
+        mIvAdd.setVisibility(View.VISIBLE);
+        mIvAdd.setImageDrawable(getResources().getDrawable(R.drawable.add_address));
     }
 
     @Override
@@ -70,6 +74,7 @@ public class MyAddressActivity extends BaseActivity {
     }
 
     private void getAddress(){
+        mPage = 0;
         BmobQuery<Address> bmobQuery = new BmobQuery<>();
         bmobQuery.addWhereEqualTo("gdutUser",mGDUTUser);
         bmobQuery.setLimit(5);
@@ -85,6 +90,10 @@ public class MyAddressActivity extends BaseActivity {
                         mAddressList.addAll(list);
                         mAddressAdpter.notifyDataSetChanged();
                         mSrl.setRefreshing(false);
+                        if (list.size() != 5){
+                            mAddressAdpter.setNoMoreLoad();
+                            noMore = true;
+                        }
                     }
                 });
             }
@@ -112,6 +121,13 @@ public class MyAddressActivity extends BaseActivity {
             }
         });
 
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         mRvAddress.setOnScrollListener(new RecyclerView.OnScrollListener() {
             int lastVisibleItem = 0;
 
@@ -132,6 +148,14 @@ public class MyAddressActivity extends BaseActivity {
                 lastVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).
                         findLastVisibleItemPosition();
 
+            }
+        });
+
+        mIvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyAddressActivity.this,AddAddressActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -168,4 +192,9 @@ public class MyAddressActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAddress();
+    }
 }

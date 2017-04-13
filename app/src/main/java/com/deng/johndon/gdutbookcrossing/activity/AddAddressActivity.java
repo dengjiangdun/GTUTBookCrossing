@@ -88,11 +88,11 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void run() {
                         showShortToast(getString(R.string.save_done));
+                        finish();
                     }
                 });
 
             }
-
             @Override
             public void onFailure(final int i, final String s) {
                 runOnUiThread(new Runnable() {
