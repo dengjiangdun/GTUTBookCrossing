@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_left"
+    android:paddingRight="@dimen/padding_right">
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/iv_data_book"
+        android:scaleType="fitXY"
+        android:layout_height="@dimen/data_book_height" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/data_book_tv_height"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/tv_data_book_name"
+            android:textSize="@dimen/text_tip_size"
+            android:layout_height="match_parent"
+            android:gravity="center|left"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/tv_data_book_isbn"
+            android:textSize="@dimen/text_tip_size"
+            android:layout_height="match_parent"
+            android:gravity="center|left"/>
+
+    </LinearLayout>
+
+</LinearLayout>
